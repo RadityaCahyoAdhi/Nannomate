@@ -1,2 +1,2 @@
-# nannofossil
+# Nannomate
 Project Capstone Nannofossil
