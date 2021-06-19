@@ -15,6 +15,6 @@ class PDFDBInputController extends Controller
         if (is_null($sample)){
             return response()->json(['error'=>'Data Not Found!'], 404);
         }
-        return Excel::download(new SampleExport($id), 'Fossil List Export.pdf');
+        return Excel::download(new SampleExport($id), 'Fossil List Export '.now()->format('Y-m-d H.i.s').'.pdf');
     }
 }
