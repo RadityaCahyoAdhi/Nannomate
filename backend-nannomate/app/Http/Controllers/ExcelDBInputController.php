@@ -22,7 +22,7 @@ class ExcelDBInputController extends Controller
         if (is_null($sample)){
             return response()->json(['error'=>'Data Not Found!'], 404);
         }
-        return Excel::download(new SampleExport($id), 'Fossil List Export.xlsx');
+        return Excel::download(new SampleExport($id), 'Fossil List Export '.now()->format('Y-m-d H.i.s').'.xlsx');
     }
 
     public function test($id)
