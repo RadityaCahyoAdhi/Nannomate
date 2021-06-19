@@ -17,6 +17,9 @@ use App\Http\Controllers\ExcelRequestInputController;
 use App\Http\Controllers\PDFDBInputController;
 use App\Http\Controllers\PDFRequestInputController;
 use App\Http\Controllers\JPGDBInputController;
+use App\Http\Controllers\JPGRequestInputController;
+use App\Http\Controllers\PNGDBInputController;
+use App\Http\Controllers\PNGRequestInputController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +48,8 @@ Route::get('/umur_geologi/{id_umur}', [UmurGeologiController::class, 'show']);
 Route::get('/detail_sampel/{id_sample}', [DetailSampelController::class, 'show']);
 Route::get('/exceldb/{id_sample}', [ExcelDBInputController::class, 'export']);
 Route::get('/pdfdb/{id_sample}', [PDFDBInputController::class, 'export']);
-Route::get('/jpgdb/{id_sample}', [JPGDBInputController::class, 'storeExcel']);
+Route::get('/jpgdb/{id_sample}', [JPGDBInputController::class, 'export']);
+Route::get('/pngdb/{id_sample}', [PNGDBInputController::class, 'export']);
 
 //test routes
 Route::get('/test/{id_sample}', [ExcelDBInputController::class, 'test']);
@@ -61,6 +65,8 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::get('/daftardataditolakuser', [DaftarDataDitolakController::class, 'bagiUser']);
     Route::post('/excelrequest', [ExcelRequestInputController::class, 'export']);
     Route::post('/pdfrequest', [PDFRequestInputController::class, 'export']);
+    Route::post('/jpgrequest', [JPGRequestInputController::class, 'export']);
+    Route::post('/pngrequest', [PNGRequestInputController::class, 'export']);
 });
 
 
