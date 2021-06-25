@@ -45,10 +45,10 @@ class AuthController extends Controller
                 $input['role'] = 'user login';
                 $input['status'] = 'aktif';
                 $user = user::create($input);
-                $success['token'] =  $user->createToken('nApp')->accessToken;
-                $success['nama_lengkap'] =  $user->nama_lengkap;
-                $success['role'] =  $user->role;
-                $success['status'] =  $user->status;
+                $success['token'] = $user->createToken('nApp')->accessToken;
+                $success['nama_lengkap'] = $user->nama_lengkap;
+                $success['role'] = $user->role;
+                $success['status'] = $user->status;
 
                 return response()->json(['success'=>$success], 200);
             }
@@ -58,10 +58,10 @@ class AuthController extends Controller
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('nApp')->accessToken;
-            $success['nama_lengkap'] =  $user->nama_lengkap;
-            $success['role'] =  $user->role;
-            $success['status'] =  $user->status;
+            $success['token'] = $user->createToken('nApp')->accessToken;
+            $success['nama_lengkap'] = $user->nama_lengkap;
+            $success['role'] = $user->role;
+            $success['status'] = $user->status;
             return response()->json(['success' => $success], 200);
         } else {
             return response()->json(['error'=>'Unauthorised'], 401);
@@ -99,6 +99,17 @@ class AuthController extends Controller
      */
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nama_lengkap' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+
         $user = Auth::user();
         //find email same or new
 		$hit = user::where('email', '=', $request->email)->get();
@@ -109,7 +120,7 @@ class AuthController extends Controller
         } else {
 
             //check password standart
-            $pass=$request->password;
+            $pass = $request->password;
             $uppercase = preg_match('@[A-Z]@', $pass);
             $lowercase = preg_match('@[a-z]@', $pass);
             $number    = preg_match('@[0-9]@', $pass);
@@ -118,18 +129,7 @@ class AuthController extends Controller
                 return response()->json(['error'=>'Password Wajib minimum 6 Character dan mengandung huruf BESAR, huruf kecil dan angka!(misal : Contoh111)'], 404);
             } else {
 
-                $validator = Validator::make($request->all(), [
-                    'nama_lengkap' => 'required',
-                    'email' => 'required|email',
-                    'password' => 'required',
-                    'c_password' => 'required|same:password'
-                ]);
-
-                if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);
-                }
-
-                $updatedUser = user::where('id_user', $user['id_user'])->update([
+                user::where('id_user', $user['id_user'])->update([
                     'nama_lengkap' => $request->nama_lengkap,
                     'email' => $request->email,
                     'password' => bcrypt($request->password)
