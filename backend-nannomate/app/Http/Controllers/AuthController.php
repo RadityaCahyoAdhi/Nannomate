@@ -12,6 +12,17 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nama_lengkap' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+
 		//find email same or new
 		$hit = user::where('email', '=', $request->email)->get();
         $hit = $hit->count();
@@ -29,18 +40,6 @@ class AuthController extends Controller
             if (!$uppercase || !$lowercase || !$number || strlen($pass)<=6) {
                 return response()->json(['error'=>'Password Wajib minimum 6 Character dan mengandung huruf BESAR, huruf kecil dan angka!(misal : Contoh111)'], 404);
             } else {
-
-                $validator = Validator::make($request->all(), [
-                    'nama_lengkap' => 'required',
-                    'email' => 'required|email',
-                    'password' => 'required',
-                    'c_password' => 'required|same:password'
-                ]);
-
-                if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);
-                }
-
                 $input = $request->all();
                 $input['password'] = bcrypt($input['password']);
                 $input['role'] = 'user login';
