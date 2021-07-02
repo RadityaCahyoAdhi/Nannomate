@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 
 //public routes
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/daftardatapenelitian', [DaftarDataPenelitianController::class, 'index']);
 Route::get('/spesies/{id_spesies}', [SpesiesController::class, 'show']);
 Route::get('/umur_geologi/{id_umur}', [UmurGeologiController::class, 'show']);
@@ -88,9 +88,9 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
 
 //logged in user & admin routes
 Route::middleware(['middleware' => 'auth:api'])->group(function () {
-    Route::get('/details', [AuthController::class, 'details']);
+    Route::get('/auth/user', [AuthController::class, 'details']);
     Route::put('/user', [AuthController::class, 'update']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::delete('/detail_sampel/{id_sample}', [DetailSampelController::class, 'destroy']);
 });
 
