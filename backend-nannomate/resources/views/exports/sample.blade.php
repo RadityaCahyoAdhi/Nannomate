@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Fossil List</title>
 </head>
 <body>
     <table> {{-- yellow: #fffe00 --}}
         <tr>
             <td align="center" colspan="6"><b>LABORATORIUM PALEONTOLOGI</b></td>
-            <td align="center" colspan="46" style="border: 1px solid black; background: #eeece0;"><b>LOKASI</b></td>
+            <td align="center" colspan="23" style="border: 1px solid black; background: #eeece0;"><b>LOKASI</b></td>
+            <td align="center" colspan="9" style="border: 1px solid black; background: #eeece0;"><b>LITOLOGI</b></td>
+            <td align="center" colspan="7" style="border: 1px solid black; background: #eeece0;"><b>LONGITUDE</b></td>
+            <td align="center" colspan="7" style="border: 1px solid black; background: #eeece0;"><b>LATITUDE</b></td>
         </tr>
         <tr>
             <td align="center" colspan="6"><b>JURUSAN TEKNIK GEOLOGI</b></td>
-            <td align="center" valign="center" colspan="46" rowspan="3" style="border: 1px solid black">{{$studi_area['lokasi']}}</td>
+            <td align="center" valign="center" colspan="23" rowspan="3" style="border: 1px solid black">{{$studi_area['lokasi']}}</td>
+            <td align="center" valign="center" colspan="9" rowspan="3" style="border: 1px solid black">{{$studi_area['litologi']}}</td>
+            <td align="center" valign="center" colspan="7" rowspan="3" style="border: 1px solid black">{{$studi_area['longitude']}}</td>
+            <td align="center" valign="center" colspan="7" rowspan="3" style="border: 1px solid black">{{$studi_area['latitude']}}</td>
         </tr>
         <tr>
             <td align="center" colspan="6"><b>FAKULTAS TEKNIK</b></td>
@@ -31,7 +37,7 @@
         <tr>
             <td align="center" colspan="6" style="border: 1px solid black">NANNOFOSIL</td>
             <td align="center" colspan="15" style="border: 1px solid black">{{$studi_area['formasi']}}</td>
-            <td align="center" colspan="16" style="border: 1px solid black">{{$sample['kode_sample']}}</td>
+            <td align="center" colspan="16" style="border: 1px solid black">{{$sample['stopsite']}}</td>
             <td align="center" colspan="15" style="border: 1px solid black">{{$sample['tujuan']}}</td>
         </tr>
         <tr>
