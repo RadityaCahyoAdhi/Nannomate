@@ -57,7 +57,6 @@ Route::post('/excelrequesttest', [ExcelRequestInputController::class, 'test']);
 
 //logged in user routes
 Route::middleware(['middleware' => 'auth:api'])->group(function () {
-    Route::get('/spesies', [SpesiesController::class, 'index']);
     Route::post('/detail_sampel', [DetailSampelController::class, 'store']);
     Route::put('/detail_sampel/{id_sample}', [DetailSampelController::class, 'update']);
     Route::get('/daftarmenungguverifikasiuser', [DaftarMenungguVerifikasiController::class, 'bagiUser']);
@@ -92,6 +91,7 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::put('/user', [AuthController::class, 'update']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::delete('/detail_sampel/{id_sample}', [DetailSampelController::class, 'destroy']);
+    Route::get('/spesies', [SpesiesController::class, 'index']);
 });
 
 
