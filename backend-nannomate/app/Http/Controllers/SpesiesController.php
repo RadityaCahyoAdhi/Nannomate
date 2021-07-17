@@ -44,11 +44,11 @@ class SpesiesController extends Controller
             if ($hit > 0) {
                 return response()->json(['error'=>'Spesies already exists!'], 404);
             } else {
-                //memastikan semua isian request yang dibutuhkan terisi
+                //memastikan semua isian request yang dibutuhkan terisi dan sesuai
                 $validator = Validator::make($request->all(), [
                     'nama_spesies' => 'required',
-                    'id_umur_awal' => 'required',
-                    'id_umur_akhir' => 'required'
+                    'id_umur_awal' => 'required|integer|between:1, 46',
+                    'id_umur_akhir' => 'required|integer|between:1, 46'
                 ]);
 
                 if ($validator->fails()) {
@@ -124,11 +124,11 @@ class SpesiesController extends Controller
             if (is_null($spesies_nanofosil)){
                 return response()->json(['error'=>'Data Not Found!'], 404);
             }
-            //memastikan semua isian request yang dibutuhkan terisi
+            //memastikan semua isian request yang dibutuhkan terisi dan sesuai
             $validator = Validator::make($request->all(), [
                 'nama_spesies' => 'required',
-                'id_umur_awal' => 'required',
-                'id_umur_akhir' => 'required'
+                'id_umur_awal' => 'required|integer|between:1, 46',
+                'id_umur_akhir' => 'required|integer|between:1, 46'
             ]);
 
             if ($validator->fails()) {
