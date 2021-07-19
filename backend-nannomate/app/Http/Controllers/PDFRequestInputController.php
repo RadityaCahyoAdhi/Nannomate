@@ -5,13 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\observer;
-use App\Models\studi_area;
-use App\Models\sample;
-use App\Models\sample_spesies;
-use App\Models\spesies_nanofosil;
-use App\Models\zona_geologi;
-use App\Models\umur_geologi;
 use App\Exports\SampleExportByRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -21,7 +14,7 @@ class PDFRequestInputController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'user login') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $validator = Validator::make($request->all(), [
                 //observer table

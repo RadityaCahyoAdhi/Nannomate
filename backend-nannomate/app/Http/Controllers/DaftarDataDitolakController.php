@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\observer;
-use App\Models\studi_area;
-use App\Models\sample;
 
 class DaftarDataDitolakController extends Controller
 {
@@ -15,7 +13,7 @@ class DaftarDataDitolakController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $daftarDataDiterima = observer::join('studi_area','studi_area.id_observer', '=', 'observer.id_observer')
             ->join('sample', 'sample.id_studi_area', '=', 'studi_area.id_studi_area')
@@ -31,7 +29,7 @@ class DaftarDataDitolakController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'user login') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $daftarDataDiterima = observer::join('studi_area','studi_area.id_observer', '=', 'observer.id_observer')
             ->join('sample', 'sample.id_studi_area', '=', 'studi_area.id_studi_area')
