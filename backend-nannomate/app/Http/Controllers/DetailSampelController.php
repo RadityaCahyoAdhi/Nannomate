@@ -65,9 +65,21 @@ class DetailSampelController extends Controller
                 return response()->json(['error'=> 'Spesies belum dimasukkan'], 401);
             }
 
-            //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
+            //memastikan masukan spesies yang telah terdaftar dalam database beserta jumlahnya telah sesuai
             if($request->id_spesies != null) {
                 $id_spesies = explode(', ', $request->id_spesies);
+                //memastikan elemen-elemen id_spesies harus berupa integer
+                try {
+                    foreach($id_spesies as $id_spesies_value) {
+                        if(!is_integer($id_spesies_value + 1)) {
+                           return response()->json(['error'=> 'Elemen-elemen id_spesies harus berupa integer'], 401);
+                        }
+                    }
+                }
+                catch(\Exception $exception){
+                    return response()->json(['error'=> 'Elemen-elemen id_spesies harus berupa integer'], 401);
+                }
+                //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
                 if($request->id_spesies_jumlah != null) {
                     $id_spesies_jumlah = explode(', ', $request->id_spesies_jumlah);
                     if(count($id_spesies) != count($id_spesies_jumlah)) {
@@ -199,7 +211,7 @@ class DetailSampelController extends Controller
             return response()->json(['error'=>'Data Not Found!'], 404);
         }
         if ($user['id_user'] != $sample['id_user']) {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $validator = Validator::make($request->all(), [
                 //observer table
@@ -230,9 +242,21 @@ class DetailSampelController extends Controller
                 return response()->json(['error'=> 'Spesies belum dimasukkan'], 401);
             }
 
-            //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
+            //memastikan masukan spesies yang telah terdaftar dalam database beserta jumlahnya telah sesuai
             if($request->id_spesies != null) {
                 $id_spesies = explode(', ', $request->id_spesies);
+                //memastikan elemen-elemen id_spesies harus berupa integer
+                try {
+                    foreach($id_spesies as $id_spesies_value) {
+                        if(!is_integer($id_spesies_value + 1)) {
+                           return response()->json(['error'=> 'Elemen-elemen id_spesies harus berupa integer'], 401);
+                        }
+                    }
+                }
+                catch(\Exception $exception){
+                    return response()->json(['error'=> 'Elemen-elemen id_spesies harus berupa integer'], 401);
+                }
+                //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
                 if($request->id_spesies_jumlah != null) {
                     $id_spesies_jumlah = explode(', ', $request->id_spesies_jumlah);
                     if(count($id_spesies) != count($id_spesies_jumlah)) {
