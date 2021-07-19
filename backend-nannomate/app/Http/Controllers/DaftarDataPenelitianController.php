@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\observer;
-use App\Models\studi_area;
-use App\Models\sample;
-
 
 class DaftarDataPenelitianController extends Controller
 {
