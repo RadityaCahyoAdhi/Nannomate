@@ -17,7 +17,7 @@ class PNGRequestInputController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'user login') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $validator = Validator::make($request->all(), [
                 //observer table

@@ -34,7 +34,7 @@ class DetailSampelController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'user login') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $validator = Validator::make($request->all(), [
                 //observer table
@@ -343,7 +343,7 @@ class DetailSampelController extends Controller
         $user = Auth::user();
         $sample = sample::find($id);
         if ($user['id_user'] != $sample['id_user'] && $user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             if (is_null($sample)){
                 return response()->json(['error'=>'Data Not Found!'], 404);

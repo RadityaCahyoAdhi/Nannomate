@@ -13,7 +13,7 @@ class CountSampelController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $jumlah_menunggu_verifikasi = sample::where('status', '=', 'menunggu verifikasi')->count();
 
@@ -26,7 +26,7 @@ class CountSampelController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $jumlah_diterima = sample::where('status', '=', 'diterima')->count();
 
@@ -39,7 +39,7 @@ class CountSampelController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $jumlah_ditolak = sample::where('status', '=', 'ditolak')->count();
 

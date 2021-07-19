@@ -36,7 +36,7 @@ class SpesiesController extends Controller
 
         //memastikan user memiliki role admin
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             //memastikan spesies terverifikasi yang akan disimpan sudah ada di database atau belum
             $hit = spesies_nanofosil::where('nama_spesies', '=', $request->nama_spesies)->where('status', '=', 'terverifikasi')->get();
@@ -117,7 +117,7 @@ class SpesiesController extends Controller
 
         //memastikan user memiliki role admin
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             //memeriksa apakah id_spesies request ada di database
             $spesies_nanofosil = spesies_nanofosil::find($id);
@@ -182,7 +182,7 @@ class SpesiesController extends Controller
 
         //memastikan user memiliki role admin
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             //memeriksa apakah id_spesies request ada di database
             $spesies_nanofosil = spesies_nanofosil::find($id);

@@ -17,7 +17,7 @@ class UmurGeologiController extends Controller
     {
         $user = Auth::user();
         if ($user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 403);
         } else {
             $daftarUmur = umur_geologi::all();
 
