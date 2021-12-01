@@ -52,12 +52,12 @@ class SpesiesController extends Controller
                 ]);
 
                 if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);
+                    return response()->json(['error'=>$validator->errors()], 400);
                 }
 
                 //memastikan request id_umur_awal tidak lebih dari id_umur_akhir
                 if ($request->id_umur_awal > $request->id_umur_akhir) {
-                    return response()->json(['error' => 'Umur awal melebihi umur akhir'], 401);
+                    return response()->json(['error' => 'Umur awal melebihi umur akhir'], 400);
                 }
 
                 //mengumpulkan seluruh request
