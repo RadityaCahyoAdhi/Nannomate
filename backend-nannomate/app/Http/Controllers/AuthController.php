@@ -107,7 +107,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error'=>$validator->errors()], 400);
         }
 
         $user = Auth::user();
@@ -126,7 +126,7 @@ class AuthController extends Controller
             $number    = preg_match('@[0-9]@', $pass);
 
             if (!$uppercase || !$lowercase || !$number || strlen($pass)<=6) {
-                return response()->json(['error'=>'Password Wajib minimum 6 Character dan mengandung huruf BESAR, huruf kecil dan angka!(misal : Contoh111)'], 404);
+                return response()->json(['error'=>'Password Wajib minimum 6 Character dan mengandung huruf BESAR, huruf kecil dan angka!(misal : Contoh111)'], 400);
             } else {
 
                 user::where('id_user', $user['id_user'])->update([
