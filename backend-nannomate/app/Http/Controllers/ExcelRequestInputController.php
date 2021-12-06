@@ -40,7 +40,7 @@ class ExcelRequestInputController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['error'=>$validator->errors()], 401);
+                return response()->json(['error'=>$validator->errors()], 400);
             }
 
             //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
@@ -49,11 +49,11 @@ class ExcelRequestInputController extends Controller
                 if($request->id_spesies_jumlah != null) {
                     $id_spesies_jumlah = explode(', ', $request->id_spesies_jumlah);
                     if(count($id_spesies) != count($id_spesies_jumlah)) {
-                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                     }
                 }
                 else {
-                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                 }
             }
 
@@ -63,11 +63,11 @@ class ExcelRequestInputController extends Controller
                 if($request->spesies_tambahan_jumlah != null) {
                     $spesies_tambahan_jumlah = explode(', ', $request->spesies_tambahan_jumlah);
                     if(count($spesies_nanofosil) != count($spesies_tambahan_jumlah)) {
-                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                     }
                 }
                 else {
-                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                 }
             }
 
