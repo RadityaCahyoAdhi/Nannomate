@@ -22,7 +22,7 @@ class JPGRequestInputController extends Controller
             $validator = Validator::make($request->all(), [
                 //observer table
                 'nama_observer' => 'required',
-                'tanggal_penelitian' => 'required',
+                'tanggal_penelitian' => 'required|date_format:Y-m-d',
                 //studi_area table
                 'lokasi' => 'required',
                 'litologi' => 'required',
