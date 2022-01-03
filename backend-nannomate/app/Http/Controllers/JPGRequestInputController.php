@@ -75,11 +75,11 @@ class JPGRequestInputController extends Controller
                 if($request->spesies_tambahan_jumlah != null) {
                     $spesies_tambahan_jumlah = explode(', ', $request->spesies_tambahan_jumlah);
                     if(count($spesies_nanofosil) != count($spesies_tambahan_jumlah)) {
-                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                     }
                 }
                 else {
-                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                 }
             }
 
