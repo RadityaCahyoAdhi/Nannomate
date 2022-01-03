@@ -42,17 +42,30 @@ class JPGRequestInputController extends Controller
                 return response()->json(['error'=>$validator->errors()], 401);
             }
 
-            //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
+            //memastikan masukan spesies yang telah terdaftar dalam database beserta jumlahnya telah sesuai
             if($request->id_spesies != null) {
                 $id_spesies = explode(', ', $request->id_spesies);
+                //memastikan elemen-elemen id_spesies harus berupa integer
+                try {
+                    $error = array('id_spesies' => ['Elemen-elemen id_spesies harus berupa integer']);
+                    foreach($id_spesies as $id_spesies_value) {
+                        if(!is_integer($id_spesies_value + 1)) {
+                           return response()->json(['error'=> $error], 400);
+                        }
+                    }
+                }
+                catch(\Exception $exception){
+                    return response()->json(['error'=> $error], 400);
+                }
+                //memastikan jumlah spesies telah dimasukkan untuk spesies yang telah terdaftar dalam database
                 if($request->id_spesies_jumlah != null) {
                     $id_spesies_jumlah = explode(', ', $request->id_spesies_jumlah);
                     if(count($id_spesies) != count($id_spesies_jumlah)) {
-                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                        return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                     }
                 }
                 else {
-                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 401);
+                    return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
                 }
             }
 
