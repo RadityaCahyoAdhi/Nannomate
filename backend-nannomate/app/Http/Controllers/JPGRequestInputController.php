@@ -39,7 +39,7 @@ class JPGRequestInputController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['error'=>$validator->errors()], 401);
+                return response()->json(['error'=>$validator->errors()], 400);
             }
 
             //memastikan masukan spesies yang telah terdaftar dalam database beserta jumlahnya telah sesuai
