@@ -38,6 +38,7 @@ class PNGRequestInputController extends Controller
                 'stopsite' => 'required'
             ]);
 
+            //memastikan variabel-variabel yang dibutuhkan tersedia
             if ($validator->fails()) {
                 return response()->json(['error'=>$validator->errors()], 400);
             }
