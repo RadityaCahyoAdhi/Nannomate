@@ -51,7 +51,7 @@ class JPGRequestInputController extends Controller
                     $error = array('id_spesies' => ['Elemen-elemen id_spesies harus berupa integer']);
                     foreach($id_spesies as $id_spesies_value) {
                         if(!is_integer($id_spesies_value + 1)) {
-                           return response()->json(['error'=> $error], 400);
+                            return response()->json(['error'=> $error], 400);
                         }
                     }
                 }
