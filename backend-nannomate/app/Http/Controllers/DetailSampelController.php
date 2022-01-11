@@ -48,9 +48,9 @@ class DetailSampelController extends Controller
                 'latitude' => 'required',
                 //sample table
                 'kode_sample' => 'required',
-                'kelimpahan' => 'required',
-                'preparasi' => 'required',
-                'pengawetan' => 'required',
+                'kelimpahan' => 'required|in:Kosong,Jarang,Beberapa,Umum,Melimpah',
+                'preparasi' => 'required|in:Ayakan,Asahan,Smear,Lain',
+                'pengawetan' => 'required|in:Jelek,Sedang,Bagus',
                 'tujuan' => 'required',
                 'stopsite' => 'required'
             ]);
@@ -226,9 +226,9 @@ class DetailSampelController extends Controller
                 'latitude' => 'required',
                 //sample table
                 'kode_sample' => 'required',
-                'kelimpahan' => 'required',
-                'preparasi' => 'required',
-                'pengawetan' => 'required',
+                'kelimpahan' => 'required|in:Kosong,Jarang,Beberapa,Umum,Melimpah',
+                'preparasi' => 'required|in:Ayakan,Asahan,Smear,Lain',
+                'pengawetan' => 'required|in:Jelek,Sedang,Bagus',
                 'tujuan' => 'required',
                 'stopsite' => 'required'
             ]);
