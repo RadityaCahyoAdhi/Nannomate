@@ -42,7 +42,7 @@ class SpesiesController extends Controller
             $hit = spesies_nanofosil::where('nama_spesies', '=', $request->nama_spesies)->where('status', '=', 'terverifikasi')->get();
             $hit = $hit->count();
             if ($hit > 0) {
-                return response()->json(['error'=>'Spesies already exists!'], 404);
+                return response()->json(['error'=>'Spesies already exists!'], 409);
             } else {
                 //memastikan semua isian request yang dibutuhkan terisi dan sesuai
                 $validator = Validator::make($request->all(), [
