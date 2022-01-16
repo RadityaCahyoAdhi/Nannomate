@@ -115,7 +115,7 @@ class AuthController extends Controller
 		$hit = user::where('email', '=', $request->email)->get();
         $hit = $hit->count();
 
-        if ($hit > 0 && $user['email'] != $request->email) {
+        if ($hit > 0 && strtolower($user['email']) != strtolower($request->email)) {
             return response()->json(['error'=>'Email already exists!'], 404);
         } else {
 
@@ -131,7 +131,7 @@ class AuthController extends Controller
 
                 user::where('id_user', $user['id_user'])->update([
                     'nama_lengkap' => $request->nama_lengkap,
-                    'email' => $request->email,
+                    'email' => strtolower($request->email),
                     'password' => bcrypt($request->password)
                 ]);
 
