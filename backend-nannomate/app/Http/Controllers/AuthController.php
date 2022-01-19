@@ -41,6 +41,7 @@ class AuthController extends Controller
                 return response()->json(['error'=>'Password Wajib minimum 6 Character dan mengandung huruf BESAR, huruf kecil dan angka!(misal : Contoh111)'], 400);
             } else {
                 $input = $request->all();
+                $input['email'] = strtolower($input['email']);
                 $input['password'] = bcrypt($input['password']);
                 $input['role'] = 'user login';
                 $input['status'] = 'aktif';
