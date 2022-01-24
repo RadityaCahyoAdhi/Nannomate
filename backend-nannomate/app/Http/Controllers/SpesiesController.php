@@ -124,6 +124,7 @@ class SpesiesController extends Controller
             if (is_null($spesies_nanofosil)){
                 return response()->json(['error'=>'Data Not Found!'], 404);
             }
+
             //memastikan semua isian request yang dibutuhkan terisi dan sesuai
             $validator = Validator::make($request->all(), [
                 'nama_spesies' => 'required',
@@ -135,36 +136,43 @@ class SpesiesController extends Controller
                 return response()->json(['error'=>$validator->errors()], 400);
             }
 
-            //memastikan request id_umur_awal tidak lebih dari id_umur_akhir
-            if ($request->id_umur_awal > $request->id_umur_akhir) {
-                return response()->json(['error' => 'Umur awal melebihi umur akhir'], 400);
+            //memastikan spesies terverifikasi yang akan disimpan sudah ada di database atau belum
+		    $hit = spesies_nanofosil::where('nama_spesies', '=', $request->nama_spesies)->where('status', '=', 'terverifikasi')->get();
+            $hit = $hit->count();
+            if ($hit > 0 && strtolower($spesies_nanofosil['nama_spesies']) != strtolower($request->nama_spesies)) {
+                return response()->json(['error'=>'Spesies already exists!'], 409);
+            } else {
+                //memastikan request id_umur_awal tidak lebih dari id_umur_akhir
+                if ($request->id_umur_awal > $request->id_umur_akhir) {
+                    return response()->json(['error' => 'Umur awal melebihi umur akhir'], 400);
+                }
+
+                //mengumpulkan seluruh request
+                $input = $request->all();
+
+                //mengedit record nama_spesies pada tabel database 'spesies_nanofosil' sesuai input id
+                spesies_nanofosil::where('id_spesies', $id)->update([
+                    'nama_spesies' => $input['nama_spesies']
+                ]);
+
+                //menghapus zona_geologi lama dari spesies yang diedit
+                zona_geologi::where('id_spesies', '=', $id)->delete();
+
+                //mengumpulkan data untuk record table database zona_geologi
+                $input_zona_geologi['id_spesies'] = $id;
+                $umur_awal = $input['id_umur_awal'];
+                $umur_akhir= $input['id_umur_akhir'];
+
+                //menyimpan record id_spesies dan id_umur dari spesies yang diedit ke tabel database 'zona_geologi'
+                for ($i = $umur_awal; $i <= $umur_akhir; $i++) {
+                    $input_zona_geologi['id_umur'] = $i;
+                    zona_geologi::create([
+                        'id_spesies' => $input_zona_geologi['id_spesies'],
+                        'id_umur' => $input_zona_geologi['id_umur']]);
+                }
+
+                return response()->json(['success' => 'Data successfully updated'], 200);
             }
-
-            //mengumpulkan seluruh request
-            $input = $request->all();
-
-            //mengedit record nama_spesies pada tabel database 'spesies_nanofosil' sesuai input id
-            spesies_nanofosil::where('id_spesies', $id)->update([
-                'nama_spesies' => $input['nama_spesies']
-            ]);
-
-            //menghapus zona_geologi lama dari spesies yang diedit
-            zona_geologi::where('id_spesies', '=', $id)->delete();
-
-            //mengumpulkan data untuk record table database zona_geologi
-            $input_zona_geologi['id_spesies'] = $id;
-            $umur_awal = $input['id_umur_awal'];
-            $umur_akhir= $input['id_umur_akhir'];
-
-            //menyimpan record id_spesies dan id_umur dari spesies yang diedit ke tabel database 'zona_geologi'
-            for ($i = $umur_awal; $i <= $umur_akhir; $i++) {
-                $input_zona_geologi['id_umur'] = $i;
-                zona_geologi::create([
-                    'id_spesies' => $input_zona_geologi['id_spesies'],
-                    'id_umur' => $input_zona_geologi['id_umur']]);
-            }
-
-            return response()->json(['success' => 'Data successfully updated'], 200);
         }
     }
 
