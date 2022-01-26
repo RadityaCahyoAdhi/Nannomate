@@ -86,11 +86,10 @@ class AuthController extends Controller
     {
         $logout = $request->user()->token()->revoke();
         if ($logout) {
-            return response()->json([
-                'message' => 'Successfully logged out'
-            ]);
+            return response()->json(['message' => 'Successfully logged out'], 200);
         }
     }
+
     /**
      * Update the specified resource in storage.
      *
