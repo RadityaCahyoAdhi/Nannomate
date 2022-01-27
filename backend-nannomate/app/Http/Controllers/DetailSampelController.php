@@ -15,16 +15,6 @@ use Carbon\Carbon;
 class DetailSampelController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -368,28 +358,29 @@ class DetailSampelController extends Controller
     {
         $user = Auth::user();
         $sample = sample::find($id);
-        if ($user['id_user'] != $sample['id_user'] && $user['role'] != 'admin') {
-            return response()->json(['error'=>'Unauthorised'], 403);
-        } else {
-            if (is_null($sample)){
-                return response()->json(['error'=>'Data Not Found!'], 404);
+        if (is_null($sample)){
+            return response()->json(['error'=>'Data Not Found!'], 404);
+        }
+        else {
+            if ($user['id_user'] != $sample['id_user'] && $user['role'] != 'admin') {
+                return response()->json(['error'=>'Unauthorised'], 403);
+            } else {
+                $studi_area = studi_area::where('id_studi_area', '=', $sample['id_studi_area'])->first();
+                $observer = observer::where('id_observer', '=', $studi_area['id_observer']);
+                $sample_spesies = sample_spesies::where('id_sample', '=', $sample['id_sample']);
+                $sample_spesies_temp = $sample_spesies->get();
+
+                $sample_spesies->delete();
+                foreach ($sample_spesies_temp as $sample_spesies_temp_value) {
+                    $spesies_tambahan = spesies_nanofosil::where('id_spesies', '=', $sample_spesies_temp_value['id_spesies'])->where('status', '=', 'tambahan');
+                    $spesies_tambahan->delete();
+                }
+                $sample->delete();
+                $studi_area->delete();
+                $observer->delete();
+
+                return response()->json(['success'=>'Delete Data Detail Sampel Success!'], 200);
             }
-
-            $studi_area = studi_area::where('id_studi_area', '=', $sample['id_studi_area'])->first();
-            $observer = observer::where('id_observer', '=', $studi_area['id_observer']);
-            $sample_spesies = sample_spesies::where('id_sample', '=', $sample['id_sample']);
-            $sample_spesies_temp = $sample_spesies->get();
-
-            $sample_spesies->delete();
-            foreach ($sample_spesies_temp as $sample_spesies_temp_value) {
-                $spesies_tambahan = spesies_nanofosil::where('id_spesies', '=', $sample_spesies_temp_value['id_spesies'])->where('status', '=', 'tambahan');
-                $spesies_tambahan->delete();
-            }
-            $sample->delete();
-            $studi_area->delete();
-            $observer->delete();
-
-            return response()->json(['success'=>'Delete Data Detail Sampel Success!'], 200);
         }
     }
 }
