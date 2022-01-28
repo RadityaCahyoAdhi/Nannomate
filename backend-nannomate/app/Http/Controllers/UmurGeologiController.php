@@ -34,7 +34,9 @@ class UmurGeologiController extends Controller
     public function show($id)
     {
         $umur = umur_geologi::find($id);
-
+        if (is_null($umur)){
+            return response()->json(['error'=>'Data Not Found!'], 404);
+        }
         return response()->json($umur, 200);
     }
 }
