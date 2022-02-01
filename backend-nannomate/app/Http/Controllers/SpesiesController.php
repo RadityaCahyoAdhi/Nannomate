@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use App\Models\spesies_nanofosil;
 use App\Models\zona_geologi;
+use App\Models\sample_spesies;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -182,31 +183,7 @@ class SpesiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // //menghapus suatu spesies nannofosil
-    // public function destroy($id)
-    // {
-    //     //mengambil data user
-    //     $user = Auth::user();
-
-    //     //memastikan user memiliki role admin
-    //     if ($user['role'] != 'admin') {
-    //         return response()->json(['error'=>'Unauthorised'], 403);
-    //     } else {
-    //         //memeriksa apakah id_spesies request ada di database
-    //         $spesies_nanofosil = spesies_nanofosil::find($id);
-    //         if (is_null($spesies_nanofosil)){
-    //             return response()->json(['error'=>'Data Not Found!'], 404);
-    //         }
-
-    //         //menghapus record pada tabel database zona_geologi dan spesies_nannofosil yang berhubungan dengan id_spesies request
-    //         $zona_geologi = zona_geologi::where('id_spesies', $id);
-    //         $zona_geologi->delete();
-    //         $spesies_nanofosil->delete();
-    //         return response()->json(['success'=>'Delete Data Spesies Nanofosil Success!'], 200);
-    //     }
-    // }
-
-    //mengedit suatu spesies nannofosil
+    //menghapus suatu spesies nannofosil
     public function destroy($id)
     {
         //mengambil data user
@@ -220,18 +197,17 @@ class SpesiesController extends Controller
             $spesies_nanofosil = spesies_nanofosil::find($id);
             if (is_null($spesies_nanofosil)){
                 return response()->json(['error'=>'Data Not Found!'], 404);
+            } else {
+                //menghapus record pada tabel database sample_spesies yang berhubungan dengan id_spesies request
+                $sample_spesies = sample_spesies::where('id_spesies', $id);
+                $sample_spesies->delete();
+
+                //menghapus record pada tabel database zona_geologi dan spesies_nannofosil yang berhubungan dengan id_spesies request
+                $zona_geologi = zona_geologi::where('id_spesies', $id);
+                $zona_geologi->delete();
+                $spesies_nanofosil->delete();
+                return response()->json(['success'=>'Delete Data Spesies Nanofosil Success!'], 200);
             }
-
-            //mengedit record nama_spesies pada tabel database 'spesies_nanofosil' sesuai input id
-            spesies_nanofosil::where('id_spesies', $id)->update([
-                'nama_spesies' => '',
-                'status' => 'terhapus'
-            ]);
-
-            //menghapus zona_geologi lama dari spesies yang diedit
-            zona_geologi::where('id_spesies', '=', $id)->delete();
-
-            return response()->json(['success' => 'Delete Data Spesies Nanofosil Success!'], 200);
         }
     }
 }
