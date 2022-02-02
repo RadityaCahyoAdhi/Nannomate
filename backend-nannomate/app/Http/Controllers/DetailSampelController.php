@@ -284,6 +284,16 @@ class DetailSampelController extends Controller
                 }
             }
 
+            //memastikan elemen-elemen id_spesies terdaftar dalam database
+            if ($request->id_spesies != null) {
+                foreach ($id_spesies as $id_spesies_value) {
+                    if (is_null(spesies_nanofosil::find($id_spesies_value))){
+                        $error = array('id_spesies' => ['Data Not Found!']);
+                        return response()->json(['error'=> $error], 404);
+                    }
+                }
+            }
+
             $sample = sample::find($id);
             $studi_area = studi_area::where('id_studi_area', '=', $sample['id_studi_area'])->first();
             $observer = observer::where('id_observer', '=', $studi_area['id_observer']);
