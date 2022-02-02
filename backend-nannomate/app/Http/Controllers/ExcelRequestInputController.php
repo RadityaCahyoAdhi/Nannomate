@@ -85,6 +85,16 @@ class ExcelRequestInputController extends Controller
                 }
             }
 
+            //memastikan elemen-elemen id_spesies terdaftar dalam database
+            if ($request->id_spesies != null) {
+                foreach ($id_spesies as $id_spesies_value) {
+                    if (is_null(spesies_nanofosil::find($id_spesies_value))){
+                        $error = array('id_spesies' => ['Data Not Found!']);
+                        return response()->json(['error'=> $error], 404);
+                    }
+                }
+            }
+
             return Excel::download(new SampleExportByRequest($request->nama_observer, $request->tanggal_penelitian, $request->lokasi, $request->litologi, $request->formasi, $request->longitude, $request->latitude, $request->kode_sample, $request->kelimpahan, $request->preparasi, $request->pengawetan, $request->tujuan, $request->stopsite, $request->id_spesies, $request->spesies_tambahan, $request->id_spesies_jumlah, $request->spesies_tambahan_jumlah), 'Fossil List Export '.now()->format('Y-m-d H.i.s').'.xlsx');
         }
     }
