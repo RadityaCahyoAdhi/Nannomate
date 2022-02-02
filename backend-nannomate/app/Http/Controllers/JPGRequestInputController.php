@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\spesies_nanofosil;
 use App\Exports\SampleExportByRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\PdfToImage\Pdf;
@@ -81,6 +82,16 @@ class JPGRequestInputController extends Controller
                 }
                 else {
                     return response()->json(['error'=> 'Ada jumlah spesies yang belum dimasukkan'], 400);
+                }
+            }
+
+            //memastikan elemen-elemen id_spesies terdaftar dalam database
+            if ($request->id_spesies != null) {
+                foreach ($id_spesies as $id_spesies_value) {
+                    if (is_null(spesies_nanofosil::find($id_spesies_value))){
+                        $error = array('id_spesies' => ['Data Not Found!']);
+                        return response()->json(['error'=> $error], 404);
+                    }
                 }
             }
 
