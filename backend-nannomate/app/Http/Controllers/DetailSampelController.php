@@ -96,6 +96,16 @@ class DetailSampelController extends Controller
                 }
             }
 
+            //memastikan elemen-elemen id_spesies terdaftar dalam database
+            if ($request->id_spesies != null) {
+                foreach ($id_spesies as $id_spesies_value) {
+                    if (is_null(spesies_nanofosil::find($id_spesies_value))){
+                        $error = array('id_spesies' => ['Data Not Found!']);
+                        return response()->json(['error'=> $error], 404);
+                    }
+                }
+            }
+
             //memasukkan data ke dalam table observer
             $observer = observer::create([
                 'nama_observer' => $request->nama_observer,
