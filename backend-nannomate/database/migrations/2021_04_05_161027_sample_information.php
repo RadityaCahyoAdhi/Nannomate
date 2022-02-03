@@ -110,6 +110,7 @@ class SampleInformation extends Migration
         Schema::dropIfExists('observer');
 		Schema::dropIfExists('studi_area');
 		Schema::dropIfExists('sample');
+        Schema::dropIfExists('sample_spesies');
 		Schema::dropIfExists('spesies_nannofosil');
         Schema::dropIfExists('zona_geologi');
 		Schema::dropIfExists('umur_geologi');
