@@ -98,6 +98,10 @@ class SpesiesController extends Controller
     public function show($id)
     {
         $spesies_nanofosil['spesies_nanofosil'] = spesies_nanofosil::find($id);
+        if (is_null($spesies_nanofosil['spesies_nanofosil'])){
+            return response()->json(['error'=>'Data Not Found!'], 404);
+        }
+
         $spesies_nanofosil['zona_geologi'] = zona_geologi::where('id_spesies', '=', $id)->get();
 
         return response()->json($spesies_nanofosil, 200);
