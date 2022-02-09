@@ -15,4 +15,9 @@ class umur_geologi extends Model
     protected $primaryKey = 'id_umur';
     //disable timestamps
     public $timestamps = false;
+
+    public function zonaGeologi()
+    {
+        return $this->hasMany(zona_geologi::class, 'id_umur', 'id_umur');
+    }
 }

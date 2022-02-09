@@ -19,4 +19,14 @@ class zona_geologi extends Model
     protected $fillable = [
         'id_spesies', 'id_umur'
     ];
+
+    public function spesiesNanofosil()
+    {
+        return $this->belongsTo(spesies_nanofosil::class, 'id_spesies', 'id_spesies');
+    }
+
+    public function umurGeologi()
+    {
+        return $this->belongsTo(umur_geologi::class, 'id_umur', 'id_umur');
+    }
 }

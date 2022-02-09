@@ -19,4 +19,14 @@ class spesies_nanofosil extends Model
     protected $fillable = [
         'nama_spesies', 'status'
     ];
+
+    public function sampleSpesies()
+    {
+        return $this->hasMany(sample_spesies::class, 'id_spesies', 'id_spesies');
+    }
+
+    public function zonaGeologi()
+    {
+        return $this->hasMany(zona_geologi::class, 'id_spesies', 'id_spesies');
+    }
 }

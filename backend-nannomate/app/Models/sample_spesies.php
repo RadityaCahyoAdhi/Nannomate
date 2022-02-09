@@ -19,4 +19,14 @@ class sample_spesies extends Model
     protected $fillable = [
         'id_sample', 'id_spesies', 'jumlah'
     ];
+
+    public function sample()
+    {
+        return $this->belongsTo(sample::class, 'id_sample', 'id_sample');
+    }
+
+    public function spesiesNanofosil()
+    {
+        return $this->belongsTo(spesies_nanofosil::class, 'id_spesies', 'id_spesies');
+    }
 }
