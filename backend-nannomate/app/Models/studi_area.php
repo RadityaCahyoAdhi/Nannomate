@@ -22,6 +22,11 @@ class studi_area extends Model
 
     public function observer()
     {
-        return $this->belongsTo(observer::class);
+        return $this->belongsTo(observer::class, 'id_observer', 'id_observer');
+    }
+
+    public function sample()
+    {
+        return $this->hasOne(sample::class, 'id_studi_area', 'id_studi_area');
     }
 }
