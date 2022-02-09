@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
-
-// class user extends Model
 class user extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
@@ -26,4 +22,9 @@ class user extends Authenticatable
     protected $fillable = [
         'nama_lengkap', 'email', 'password', 'role', 'status'
     ];
+
+    public function sample()
+    {
+        return $this->hasMany(sample::class, 'id_user', 'id_user');
+    }
 }
