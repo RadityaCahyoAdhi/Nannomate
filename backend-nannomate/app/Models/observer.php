@@ -22,6 +22,6 @@ class observer extends Model
 
     public function studiArea()
     {
-        return $this->hasOne(studi_area::class, 'id_studi_area');
+        return $this->hasOne(studi_area::class, 'id_observer', 'id_observer');
     }
 }
