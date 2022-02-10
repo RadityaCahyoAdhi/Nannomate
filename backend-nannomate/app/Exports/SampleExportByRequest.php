@@ -52,7 +52,7 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
     public function columnWidths(): array
     {
         return [
-            'G' => 4.335, //2.89 == 2.11(excel)
+            'G' => 4.335, //4.335 == 3.56(excel)
             'H' => 4.335,
             'I' => 4.335,
             'J' => 4.335,
