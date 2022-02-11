@@ -149,249 +149,151 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
                 'NN21' => false,
             ];
         }
-        // $count_umur = Array();
-        // $count_umur = [
-        //     'NP1' => 0,
-        //     'NP2' => 0,
-        //     'NP3' => 0,
-        //     'NP4' => 0,
-        //     'NP5' => 0,
-        //     'NP6' => 0,
-        //     'NP7' => 0,
-        //     'NP8' => 0,
-        //     'NP9' => 0,
-        //     'NP10' => 0,
-        //     'NP11' => 0,
-        //     'NP12' => 0,
-        //     'NP13' => 0,
-        //     'NP14' => 0,
-        //     'NP15' => 0,
-        //     'NP16' => 0,
-        //     'NP17' => 0,
-        //     'NP18' => 0,
-        //     'NP19' => 0,
-        //     'NP20' => 0,
-        //     'NP21' => 0,
-        //     'NP22' => 0,
-        //     'NP23' => 0,
-        //     'NP24' => 0,
-        //     'NP25' => 0,
-        //     'NN1' => 0,
-        //     'NN2' => 0,
-        //     'NN3' => 0,
-        //     'NN4' => 0,
-        //     'NN5' => 0,
-        //     'NN6' => 0,
-        //     'NN7' => 0,
-        //     'NN8' => 0,
-        //     'NN9' => 0,
-        //     'NN10' => 0,
-        //     'NN11' => 0,
-        //     'NN12' => 0,
-        //     'NN13' => 0,
-        //     'NN14' => 0,
-        //     'NN15' => 0,
-        //     'NN16' => 0,
-        //     'NN17' => 0,
-        //     'NN18' => 0,
-        //     'NN19' => 0,
-        //     'NN20' => 0,
-        //     'NN21' => 0,
-        // ];
-        // $count_spesies_berumur = 0;
+
         $umur_spesies = Array();
         $i = 0;
         foreach ($spesies_nanofosil as $spesies_nanofosil_value) {
             $spesies_nanofosil_value[0]->zona = zona_geologi::where('id_spesies', '=', $spesies_nanofosil_value[0]->id_spesies)->get();
-            // if ($spesies_nanofosil_value[0]->zona->count() != 0) {
-            //     $count_spesies_berumur++;
-            // }
             $j = 0;
             foreach ($spesies_nanofosil_value[0]->zona as $zona_value) {
                 switch ($zona_value['id_umur']) {
                     case 1:
                         $umur_condition[$i]['NP1'] = true;
-                        // $count_umur['NP1']++;
                         break;
                     case 2:
                         $umur_condition[$i]['NP2'] = true;
-                        // $count_umur['NP2']++;
                         break;
                     case 3:
                         $umur_condition[$i]['NP3'] = true;
-                        // $count_umur['NP3']++;
                         break;
                     case 4:
                         $umur_condition[$i]['NP4'] = true;
-                        // $count_umur['NP4']++;
                         break;
                     case 5:
                         $umur_condition[$i]['NP5'] = true;
-                        // $count_umur['NP5']++;
                         break;
                     case 6:
                         $umur_condition[$i]['NP6'] = true;
-                        // $count_umur['NP6']++;
                         break;
                     case 7:
                         $umur_condition[$i]['NP7'] = true;
-                        // $count_umur['NP7']++;
                         break;
                     case 8:
                         $umur_condition[$i]['NP8'] = true;
-                        // $count_umur['NP8']++;
                         break;
                     case 9:
                         $umur_condition[$i]['NP9'] = true;
-                        // $count_umur['NP9']++;
                         break;
                     case 10:
                         $umur_condition[$i]['NP10'] = true;
-                        // $count_umur['NP10']++;
                         break;
                     case 11:
                         $umur_condition[$i]['NP11'] = true;
-                        // $count_umur['NP11']++;
                         break;
                     case 12:
                         $umur_condition[$i]['NP12'] = true;
-                        // $count_umur['NP12']++;
                         break;
                     case 13:
                         $umur_condition[$i]['NP13'] = true;
-                        // $count_umur['NP13']++;
                         break;
                     case 14:
                         $umur_condition[$i]['NP14'] = true;
-                        // $count_umur['NP14']++;
                         break;
                     case 15:
                         $umur_condition[$i]['NP15'] = true;
-                        // $count_umur['NP15']++;
                         break;
                     case 16:
                         $umur_condition[$i]['NP16'] = true;
-                        // $count_umur['NP16']++;
                         break;
                     case 17:
                         $umur_condition[$i]['NP17'] = true;
-                        // $count_umur['NP17']++;
                         break;
                     case 18:
                         $umur_condition[$i]['NP18'] = true;
-                        // $count_umur['NP18']++;
                         break;
                     case 19:
                         $umur_condition[$i]['NP19'] = true;
-                        // $count_umur['NP19']++;
                         break;
                     case 20:
                         $umur_condition[$i]['NP20'] = true;
-                        // $count_umur['NP20']++;
                         break;
                     case 21:
                         $umur_condition[$i]['NP21'] = true;
-                        // $count_umur['NP21']++;
                         break;
                     case 22:
                         $umur_condition[$i]['NP22'] = true;
-                        // $count_umur['NP22']++;
                         break;
                     case 23:
                         $umur_condition[$i]['NP23'] = true;
-                        // $count_umur['NP23']++;
                         break;
                     case 24:
                         $umur_condition[$i]['NP24'] = true;
-                        // $count_umur['NP24']++;
                         break;
                     case 25:
                         $umur_condition[$i]['NP25'] = true;
-                        // $count_umur['NP25']++;
                         break;
                     case 26:
                         $umur_condition[$i]['NN1'] = true;
-                        // $count_umur['NN1']++;
                         break;
                     case 27:
                         $umur_condition[$i]['NN2'] = true;
-                        // $count_umur['NN2']++;
                         break;
                     case 28:
                         $umur_condition[$i]['NN3'] = true;
-                        // $count_umur['NN3']++;
                         break;
                     case 29:
                         $umur_condition[$i]['NN4'] = true;
-                        // $count_umur['NN4']++;
                         break;
                     case 30:
                         $umur_condition[$i]['NN5'] = true;
-                        // $count_umur['NN5']++;
                         break;
                     case 31:
                         $umur_condition[$i]['NN6'] = true;
-                        // $count_umur['NN6']++;
                         break;
                     case 32:
                         $umur_condition[$i]['NN7'] = true;
-                        // $count_umur['NN7']++;
                         break;
                     case 33:
                         $umur_condition[$i]['NN8'] = true;
-                        // $count_umur['NN8']++;
                         break;
                     case 34:
                         $umur_condition[$i]['NN9'] = true;
-                        // $count_umur['NN9']++;
                         break;
                     case 35:
                         $umur_condition[$i]['NN10'] = true;
-                        // $count_umur['NN10']++;
                         break;
                     case 36:
                         $umur_condition[$i]['NN11'] = true;
-                        // $count_umur['NN11']++;
                         break;
                     case 37:
                         $umur_condition[$i]['NN12'] = true;
-                        // $count_umur['NN12']++;
                         break;
                     case 38:
                         $umur_condition[$i]['NN13'] = true;
-                        // $count_umur['NN13']++;
                         break;
                     case 39:
                         $umur_condition[$i]['NN14'] = true;
-                        // $count_umur['NN14']++;
                         break;
                     case 40:
                         $umur_condition[$i]['NN15'] = true;
-                        // $count_umur['NN15']++;
                         break;
                     case 41:
                         $umur_condition[$i]['NN16'] = true;
-                        // $count_umur['NN16']++;
                         break;
                     case 42:
                         $umur_condition[$i]['NN17'] = true;
-                        // $count_umur['NN17']++;
                         break;
                     case 43:
                         $umur_condition[$i]['NN18'] = true;
-                        // $count_umur['NN18']++;
                         break;
                     case 44:
                         $umur_condition[$i]['NN19'] = true;
-                        // $count_umur['NN19']++;
                         break;
                     case 45:
                         $umur_condition[$i]['NN20'] = true;
-                        // $count_umur['NN20']++;
                         break;
                     case 46:
                         $umur_condition[$i]['NN21'] = true;
-                        // $count_umur['NN21']++;
                         break;
                 }
                 $umur_spesies[$i][$j] = $zona_value['id_umur'];
@@ -437,41 +339,6 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
             $kesimpulan['min_umur_kata_per_kata'] = explode(' ', $kesimpulan['min_umur']);
             $kesimpulan['max_umur_kata_per_kata'] = explode(' ', $kesimpulan['max_umur']);
         }
-
-        //perlu revisi
-        // if ($max_count_umur == $count_spesies_berumur && $count_spesies_berumur != 0) {
-        //     $kesimpulan['rentang_zona'] = array_keys($count_umur, $max_count_umur);
-        //     $kesimpulan['min_zona'] = $kesimpulan['rentang_zona'][0];
-        //     $kesimpulan['max_zona'] = $kesimpulan['rentang_zona'][count($kesimpulan['rentang_zona']) - 1];
-        //     $kesimpulan['min_umur'] = umur_geologi::where('zona_geo', '=', $kesimpulan['min_zona'])->get()->first()['umur_geo'];
-        //     $kesimpulan['max_umur'] = umur_geologi::where('zona_geo', '=', $kesimpulan['max_zona'])->get()->first()['umur_geo'];
-        //     $kesimpulan['min_umur_kata_per_kata'] = explode(' ', $kesimpulan['min_umur']);
-        //     $kesimpulan['max_umur_kata_per_kata'] = explode(' ', $kesimpulan['max_umur']);
-        // }
-        // elseif ($max_count_umur != $count_spesies_berumur) {
-        //     $j = 0;
-        //     foreach ($spesies_nanofosil as $spesies_nanofosil_value) {
-        //         $spesies_nanofosil_value[0]->zona = zona_geologi::where('id_spesies', '=', $spesies_nanofosil_value[0]->id_spesies)->get();
-        //         $k = 0;
-        //         if ($spesies_nanofosil_value[0]->zona->count() != 0) {
-        //             foreach ($spesies_nanofosil_value[0]->zona as $zona_value) {
-        //                 $rentang_umur_spesies[$j][$k] = $zona_value['id_umur'];
-        //                 $k++;
-        //             }
-        //         $min_umur_spesies[$j] = $rentang_umur_spesies[$j][0];
-        //         $max_umur_spesies[$j] = $rentang_umur_spesies[$j][count($rentang_umur_spesies[$j]) - 1];
-        //         $j++;
-        //         }
-        //     }
-        //     $kesimpulan['min_zona'] = umur_geologi::where('id_umur', '=', min($max_umur_spesies))->get()->first()['zona_geo'];
-        //     $kesimpulan['max_zona'] = umur_geologi::where('id_umur', '=', max($min_umur_spesies))->get()->first()['zona_geo'];
-        //     $kesimpulan['min_umur'] = umur_geologi::where('id_umur', '=', min($max_umur_spesies))->get()->first()['umur_geo'];
-        //     $kesimpulan['max_umur'] = umur_geologi::where('id_umur', '=', max($min_umur_spesies))->get()->first()['umur_geo'];
-        //     $kesimpulan['min_umur_kata_per_kata'] = explode(' ', $kesimpulan['min_umur']);
-        //     $kesimpulan['max_umur_kata_per_kata'] = explode(' ', $kesimpulan['max_umur']);
-        // }
-
-        // perlu revisi
 
         $sample_detail = [
             'sample' => $sample,
