@@ -47,10 +47,6 @@ Route::get('/pdfdb/{id_sample}', [PDFDBInputController::class, 'export']);
 Route::get('/jpgdb/{id_sample}', [JPGDBInputController::class, 'export']);
 Route::get('/pngdb/{id_sample}', [PNGDBInputController::class, 'export']);
 
-//test routes
-Route::get('/test/{id_sample}', [ExcelDBInputController::class, 'test']);
-Route::post('/excelrequesttest', [ExcelRequestInputController::class, 'test']);
-
 //logged in user routes
 Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::post('/detail_sampel', [DetailSampelController::class, 'store']);
