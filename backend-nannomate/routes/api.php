@@ -35,10 +35,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 //public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
@@ -68,7 +64,6 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::post('/pngrequest', [PNGRequestInputController::class, 'export']);
 });
 
-
 //admin routes
 Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::get('/countmenungguverifikasi', [CountSampelController::class, 'countMenungguVerifikasi']);
@@ -93,7 +88,6 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::delete('/detail_sampel/{id_sample}', [DetailSampelController::class, 'destroy']);
     Route::get('/spesies', [SpesiesController::class, 'index']);
 });
-
 
 //super admin routes
 Route::get('/akunadmin', [AkunAdminController::class, 'index']);
