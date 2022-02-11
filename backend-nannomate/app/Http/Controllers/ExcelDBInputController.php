@@ -7,7 +7,6 @@ use App\Models\sample;
 use App\Exports\SampleExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-
 class ExcelDBInputController extends Controller
 {
     public function export($id)

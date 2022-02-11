@@ -9,7 +9,6 @@ use App\Models\spesies_nanofosil;
 use App\Exports\SampleExportByRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
-
 class ExcelRequestInputController extends Controller
 {
     public function export(Request $request)
