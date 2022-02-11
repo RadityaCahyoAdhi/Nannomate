@@ -20,11 +20,14 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
     /**
     * @return \Illuminate\Support\Collection
     */
+
+    //construct variabel id_sample
     public function __construct(int $id)
     {
         $this->id = $id;
     }
 
+    //set style excel
     public function styles(Worksheet $sheet)
     {
         $sheet->getStyle('A14')->getAlignment()->setTextRotation(-90);
@@ -33,6 +36,7 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
         $sheet->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A2_PAPER);
     }
 
+    //set lebar kolom excel
     public function columnWidths(): array
     {
         return [
@@ -85,8 +89,10 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
         ];
     }
 
+    //define variabel dibutuhkan untuk view excel
     public function view(): View
     {
+        //define variabel mentah
         $sample = sample::find($this->id);
         $studi_area = studi_area::where('id_studi_area', '=', $sample['id_studi_area'])->get()->first();
         $observer = observer::where('id_observer', '=', $studi_area['id_observer'])->get()->first();
@@ -98,6 +104,8 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
                 $spesies_nanofosil[] = spesies_nanofosil::where('id_spesies', '=', $sample_spesies_value['id_spesies'])->get();
             }
         }
+
+        //define array zona umur per spesies
         $umur_condition = Array();
         for ($i=0; $i<count($spesies_nanofosil); $i++) {
             $umur_condition[$i] = [
@@ -155,6 +163,8 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
         foreach ($spesies_nanofosil as $spesies_nanofosil_value) {
             $spesies_nanofosil_value[0]->zona = zona_geologi::where('id_spesies', '=', $spesies_nanofosil_value[0]->id_spesies)->get();
             $j = 0;
+
+            //define zona umur per spesies
             foreach ($spesies_nanofosil_value[0]->zona as $zona_value) {
                 switch ($zona_value['id_umur']) {
                     case 1:
@@ -340,6 +350,7 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
             $kesimpulan['max_umur_kata_per_kata'] = explode(' ', $kesimpulan['max_umur']);
         }
 
+        //set sample_detail
         $sample_detail = [
             'sample' => $sample,
             'studi_area' => $studi_area,
