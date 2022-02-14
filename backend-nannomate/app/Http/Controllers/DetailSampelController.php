@@ -41,7 +41,7 @@ class DetailSampelController extends Controller
                 'kelimpahan' => 'required|in:Kosong,Jarang,Beberapa,Umum,Melimpah',
                 'preparasi' => 'required|in:Ayakan,Asahan,Smear,Lain',
                 'pengawetan' => 'required|in:Jelek,Sedang,Bagus',
-                'tujuan' => 'required',
+                'tujuan' => 'required|in:Penelitian,Tugas Akhir,Umum',
                 'stopsite' => 'required'
             ]);
 
@@ -229,7 +229,7 @@ class DetailSampelController extends Controller
                 'kelimpahan' => 'required|in:Kosong,Jarang,Beberapa,Umum,Melimpah',
                 'preparasi' => 'required|in:Ayakan,Asahan,Smear,Lain',
                 'pengawetan' => 'required|in:Jelek,Sedang,Bagus',
-                'tujuan' => 'required',
+                'tujuan' => 'required|in:Penelitian,Tugas Akhir,Umum',
                 'stopsite' => 'required'
             ]);
 
