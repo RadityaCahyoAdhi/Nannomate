@@ -312,7 +312,7 @@ class SampleExport implements FromView, WithStyles, WithColumnWidths
         $i++;
         }
 
-        $m = count($umur_spesies); //menghitung jumlah spesies berumur
+        $m = count(array_filter($umur_spesies)); //menghitung jumlah spesies berumur
         if ($m != 0) {
             //mengumpulkan umur awal spesies
             for ($k=0; $k<$m; $k++) {
