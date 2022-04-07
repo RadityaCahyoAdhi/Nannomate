@@ -222,232 +222,324 @@
         <tr>
             <td align="center" style="border: 1px solid black;">{{$sample_spesies[$i]['jumlah']}}</td>
             <td colspan="5" style="border: 1px solid black;">{{$spesies_nanofosil_value[0]['nama_spesies']}}</td>
-            @if ($umur_condition[$j]['NP1'] == true)
+            @if (($umur_condition[$j]['NP1'] == true) && (in_array(1, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP1'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP2'] == true)
+            @if (($umur_condition[$j]['NP2'] == true) && (in_array(2, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP2'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP3'] == true)
+            @if (($umur_condition[$j]['NP3'] == true) && (in_array(3, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP3'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP4'] == true)
+            @if (($umur_condition[$j]['NP4'] == true) && (in_array(4, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP4'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP5'] == true)
+            @if (($umur_condition[$j]['NP5'] == true) && (in_array(5, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP5'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP6'] == true)
+            @if (($umur_condition[$j]['NP6'] == true) && (in_array(6, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP6'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP7'] == true)
+            @if (($umur_condition[$j]['NP7'] == true) && (in_array(7, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP7'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP8'] == true)
+            @if (($umur_condition[$j]['NP8'] == true) && (in_array(8, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP8'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP9'] == true)
+            @if (($umur_condition[$j]['NP9'] == true) && (in_array(9, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP9'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP10'] == true)
+            @if (($umur_condition[$j]['NP10'] == true) && (in_array(10, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP10'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP11'] == true)
+            @if (($umur_condition[$j]['NP11'] == true) && (in_array(11, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP11'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP12'] == true)
+            @if (($umur_condition[$j]['NP12'] == true) && (in_array(12, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP12'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP13'] == true)
+            @if (($umur_condition[$j]['NP13'] == true) && (in_array(13, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP13'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP14'] == true)
+            @if (($umur_condition[$j]['NP14'] == true) && (in_array(14, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP14'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP15'] == true)
+            @if (($umur_condition[$j]['NP15'] == true) && (in_array(15, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP15'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP16'] == true)
+            @if (($umur_condition[$j]['NP16'] == true) && (in_array(16, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP16'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP17'] == true)
+            @if (($umur_condition[$j]['NP17'] == true) && (in_array(17, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP17'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP18'] == true)
+            @if (($umur_condition[$j]['NP18'] == true) && (in_array(18, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP18'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP19'] == true)
+            @if (($umur_condition[$j]['NP19'] == true) && (in_array(19, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP19'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP20'] == true)
+            @if (($umur_condition[$j]['NP20'] == true) && (in_array(20, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP20'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP21'] == true)
+            @if (($umur_condition[$j]['NP21'] == true) && (in_array(21, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP21'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP22'] == true)
+            @if (($umur_condition[$j]['NP22'] == true) && (in_array(22, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP22'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP23'] == true)
+            @if (($umur_condition[$j]['NP23'] == true) && (in_array(23, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP23'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP24'] == true)
+            @if (($umur_condition[$j]['NP24'] == true) && (in_array(24, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP24'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NP25'] == true)
+            @if (($umur_condition[$j]['NP25'] == true) && (in_array(25, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NP25'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN1'] == true)
+            @if (($umur_condition[$j]['NN1'] == true) && (in_array(26, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN1'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN2'] == true)
+            @if (($umur_condition[$j]['NN2'] == true) && (in_array(27, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN2'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN3'] == true)
+            @if (($umur_condition[$j]['NN3'] == true) && (in_array(28, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN3'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN4'] == true)
+            @if (($umur_condition[$j]['NN4'] == true) && (in_array(29, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN4'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN5'] == true)
+            @if (($umur_condition[$j]['NN5'] == true) && (in_array(30, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN5'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN6'] == true)
+            @if (($umur_condition[$j]['NN6'] == true) && (in_array(31, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN6'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN7'] == true)
+            @if (($umur_condition[$j]['NN7'] == true) && (in_array(32, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN7'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN8'] == true)
+            @if (($umur_condition[$j]['NN8'] == true) && (in_array(33, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN8'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN9'] == true)
+            @if (($umur_condition[$j]['NN9'] == true) && (in_array(34, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN9'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN10'] == true)
+            @if (($umur_condition[$j]['NN10'] == true) && (in_array(35, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN10'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN11'] == true)
+            @if (($umur_condition[$j]['NN11'] == true) && (in_array(36, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN11'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN12'] == true)
+            @if (($umur_condition[$j]['NN12'] == true) && (in_array(37, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN12'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN13'] == true)
+            @if (($umur_condition[$j]['NN13'] == true) && (in_array(38, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN13'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN14'] == true)
+            @if (($umur_condition[$j]['NN14'] == true) && (in_array(39, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN14'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN15'] == true)
+            @if (($umur_condition[$j]['NN15'] == true) && (in_array(40, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN15'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN16'] == true)
+            @if (($umur_condition[$j]['NN16'] == true) && (in_array(41, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN16'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN17'] == true)
+            @if (($umur_condition[$j]['NN17'] == true) && (in_array(42, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN17'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN18'] == true)
+            @if (($umur_condition[$j]['NN18'] == true) && (in_array(43, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN18'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN19'] == true)
+            @if (($umur_condition[$j]['NN19'] == true) && (in_array(44, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN19'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN20'] == true)
+            @if (($umur_condition[$j]['NN20'] == true) && (in_array(45, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN20'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>
             @endif
-            @if ($umur_condition[$j]['NN21'] == true)
+            @if (($umur_condition[$j]['NN21'] == true) && (in_array(46, $umur_overlap)))
+                <td style="border: 1px solid black; background: green;"></td>
+            @elseif ($umur_condition[$j]['NN21'] == true)
                 <td style="border: 1px solid black; background: #fffe00;"></td>
             @else
                 <td style="border: 1px solid black"></td>

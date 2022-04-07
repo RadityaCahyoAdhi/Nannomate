@@ -401,6 +401,9 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
         $kesimpulan['min_umur_kata_per_kata'] = null;
         $kesimpulan['max_umur_kata_per_kata'] = null;
 
+        //define umur overlap
+        $umur_overlap = array();
+
         if ($m != 0) {
             //input kesimpulan
             $kesimpulan['min_zona'] = umur_geologi::where('id_umur', '=', $max_umur_awal_spesies)->get()->first()['zona_geo'];
@@ -409,6 +412,11 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
             $kesimpulan['max_umur'] = umur_geologi::where('id_umur', '=', $min_umur_akhir_spesies)->get()->first()['umur_geo'];
             $kesimpulan['min_umur_kata_per_kata'] = explode(' ', $kesimpulan['min_umur']);
             $kesimpulan['max_umur_kata_per_kata'] = explode(' ', $kesimpulan['max_umur']);
+
+            //input umur overlap
+            for ($i=$max_umur_awal_spesies; $i<=$min_umur_akhir_spesies; $i++) {
+                $umur_overlap[$i] = $i;
+            }
         }
 
         //set sample_detail
@@ -422,6 +430,7 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
             'j' => 0,
             'umur_condition' => $umur_condition,
             'kesimpulan' => $kesimpulan,
+            'umur_overlap' => $umur_overlap
         ];
 
         return view('exports.sample', $sample_detail);
