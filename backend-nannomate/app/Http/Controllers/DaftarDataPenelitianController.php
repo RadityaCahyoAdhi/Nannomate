@@ -11,6 +11,7 @@ class DaftarDataPenelitianController extends Controller
     {
         $daftarDataPenelitian = observer::join('studi_area','studi_area.id_observer', '=', 'observer.id_observer')
         ->join('sample', 'sample.id_studi_area', '=', 'studi_area.id_studi_area')
+        ->where('status', '=', 'diterima')
         ->get(['sample.id_sample', 'observer.nama_observer', 'studi_area.lokasi', 'studi_area.formasi', 'sample.kode_sample', 'sample.tujuan']);
 
         return response()->json($daftarDataPenelitian, 200);
