@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Models\user;
 
 
@@ -42,7 +43,7 @@ class AuthController extends Controller
             } else {
                 $input = $request->all();
                 $input['email'] = strtolower($input['email']);
-                $input['password'] = bcrypt($input['password']);
+                $input['password'] = Hash::make($input['password']);
                 $input['role'] = 'user login';
                 $input['status'] = 'aktif';
                 $user = user::create($input);
@@ -132,7 +133,7 @@ class AuthController extends Controller
                 user::where('id_user', $user['id_user'])->update([
                     'nama_lengkap' => $request->nama_lengkap,
                     'email' => strtolower($request->email),
-                    'password' => bcrypt($request->password)
+                    'password' => Hash::make($request->password)
                 ]);
 
                 return response()->json(['success' => 'Data successfully updated'], 200);
