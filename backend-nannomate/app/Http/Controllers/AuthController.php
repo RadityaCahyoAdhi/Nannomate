@@ -60,11 +60,15 @@ class AuthController extends Controller
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            $success['token'] = $user->createToken('nApp')->accessToken;
-            $success['nama_lengkap'] = $user->nama_lengkap;
-            $success['role'] = $user->role;
-            $success['status'] = $user->status;
-            return response()->json(['success' => $success], 200);
+            if ($user->status != 'aktif') {
+                return response()->json(['error'=>'Unauthorised'], 401);
+            } else {
+                $success['token'] = $user->createToken('nApp')->accessToken;
+                $success['nama_lengkap'] = $user->nama_lengkap;
+                $success['role'] = $user->role;
+                $success['status'] = $user->status;
+                return response()->json(['success' => $success], 200);
+            }
         } else {
             return response()->json(['error'=>'Unauthorised'], 401);
         }
