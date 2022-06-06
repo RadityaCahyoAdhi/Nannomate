@@ -214,5 +214,26 @@ class SpesiesController extends Controller
             }
         }
     }
+
+    //menampilkan daftar spesies nannofosil terverifikasi admin
+    public function getDaftarSpesiesTerverifikasiAdmin() {
+        $user = Auth::user();
+        if ($user['role'] != 'admin') {
+            return response()->json(['error'=>'Unauthorised'], 403);
+        } else {
+            $daftarSpesiesTerverifikasi = spesies_nanofosil::where('status', '=', 'terverifikasi')->get();
+
+            //get zona geologi spesies
+            $i = 0;
+            foreach ($daftarSpesiesTerverifikasi as $SpesiesTerverifikasi) {
+                $daftarSpesiesAdmin[$i] = $SpesiesTerverifikasi;
+                $zonaGeologiSpesies = zona_geologi::where('id_spesies', '=', $SpesiesTerverifikasi->id_spesies)->get();
+                $daftarSpesiesAdmin[$i]->zona_geologi = $zonaGeologiSpesies;
+                $i++;
+            }
+
+            return response()->json($daftarSpesiesAdmin, 200);
+        }
+    }
 }
 

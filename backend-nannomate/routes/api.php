@@ -74,6 +74,7 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::put('/terimasampel/{id_sample}', [TerimaSampelController::class, 'update']);
     Route::put('/tolaksampel/{id_sample}', [TolakSampelController::class, 'update']);
     Route::get('/umur_geologi', [UmurGeologiController::class, 'index']);
+    Route::get('/spesiesadmin', [SpesiesController::class, 'getDaftarSpesiesTerverifikasiAdmin']);
 });
 
 //logged in user & admin routes
