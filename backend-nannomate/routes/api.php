@@ -85,10 +85,3 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::delete('/detail_sampel/{id_sample}', [DetailSampelController::class, 'destroy']);
     Route::get('/spesies', [SpesiesController::class, 'index']);
 });
-
-//super admin routes
-Route::get('/akunadmin', [AkunAdminController::class, 'index']);
-Route::get('/akunadmin/{id_user}', [AkunAdminController::class, 'show']);
-Route::post('/akunadmin', [AkunAdminController::class, 'store']);
-Route::put('/akunadmin/{id_user}', [AkunAdminController::class, 'update']);
-Route::delete('/akunadmin/{id_user}', [AkunAdminController::class, 'destroy']);
