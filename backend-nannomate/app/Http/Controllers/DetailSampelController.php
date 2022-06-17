@@ -7,6 +7,8 @@ use App\Models\studi_area;
 use App\Models\sample;
 use App\Models\sample_spesies;
 use App\Models\spesies_nanofosil;
+use App\Models\zona_geologi;
+use App\Models\umur_geologi;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -187,11 +189,73 @@ class DetailSampelController extends Controller
         $observer = observer::where('id_observer', '=', $studi_area['id_observer'])->get()->first();
         $sample_spesies = sample_spesies::where('id_sample', '=', $sample['id_sample'])->get();
 
+        // get setiap spesies_nanofosil sampel and zona_geologi dari spesies-spesies tersebut
+        $i = 0;
+        $spesies = [];
+        $zona_geologi = [];
+        foreach ($sample_spesies as $sample_spesiesValue) {
+            $spesies[$i] = spesies_nanofosil::where('id_spesies', '=', $sample_spesiesValue->id_spesies)->get()[0];
+            $zona_geologi[$i] = zona_geologi::where('id_spesies', '=', $sample_spesiesValue->id_spesies)->get();
+            $i++;
+        }
+
+        //menghitung jumlah spesies berumur
+        $m = 0;
+        foreach ($zona_geologi as $zona_geologiValue) {
+            if (sizeof($zona_geologiValue) != 0) {
+                $m++;
+            }
+        }
+
+        if ($m != 0) {
+            //mengumpulkan umur awal spesies
+            for ($k=0; $k<$m; $k++) {
+                $umur_awal_spesies[$k] = $zona_geologi[$k][0]->id_umur;
+            }
+
+            $max_umur_awal_spesies = max($umur_awal_spesies);
+
+            //mengumpulkan umur akhir spesies yang memiliki overlap dengan spesies termuda
+            for ($l=0; $l<$m; $l++) {
+                if ($zona_geologi[$l][count($zona_geologi[$l]) - 1]->id_umur >= $max_umur_awal_spesies) {
+                    $umur_akhir_spesies[$l] = $zona_geologi[$l][count($zona_geologi[$l]) - 1]->id_umur;
+                }
+            }
+
+            $min_umur_akhir_spesies = min($umur_akhir_spesies);
+        }
+
+        //define kesimpulan
+        $kesimpulan = array();
+        $kesimpulan['min_id_umur'] = null;
+        $kesimpulan['max_id_umur'] = null;
+        $kesimpulan['min_zona'] = null;
+        $kesimpulan['max_zona'] = null;
+        $kesimpulan['min_umur'] = null;
+        $kesimpulan['max_umur'] = null;
+        $kesimpulan['min_umur_kata_per_kata'] = null;
+        $kesimpulan['max_umur_kata_per_kata'] = null;
+
+        if ($m != 0) {
+            //input kesimpulan
+            $kesimpulan['min_id_umur'] = $max_umur_awal_spesies;
+            $kesimpulan['max_id_umur'] = $min_umur_akhir_spesies;
+            $kesimpulan['min_zona'] = umur_geologi::where('id_umur', '=', $max_umur_awal_spesies)->get()->first()['zona_geo'];
+            $kesimpulan['max_zona'] = umur_geologi::where('id_umur', '=', $min_umur_akhir_spesies)->get()->first()['zona_geo'];
+            $kesimpulan['min_umur'] = umur_geologi::where('id_umur', '=', $max_umur_awal_spesies)->get()->first()['umur_geo'];
+            $kesimpulan['max_umur'] = umur_geologi::where('id_umur', '=', $min_umur_akhir_spesies)->get()->first()['umur_geo'];
+            $kesimpulan['min_umur_kata_per_kata'] = explode(' ', $kesimpulan['min_umur']);
+            $kesimpulan['max_umur_kata_per_kata'] = explode(' ', $kesimpulan['max_umur']);
+        }
+
         $detail_sample = [
             'observer' => $observer,
             'studi_area' => $studi_area,
             'sample' => $sample,
-            'sample_spesies' => $sample_spesies
+            'sample_spesies' => $sample_spesies,
+            'spesies' => $spesies,
+            'zona_geologi' => $zona_geologi,
+            'kesimpulan' => $kesimpulan
         ];
 
         return response()->json($detail_sample, 200);
