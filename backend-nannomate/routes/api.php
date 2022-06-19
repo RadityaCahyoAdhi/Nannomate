@@ -49,6 +49,7 @@ Route::get('/pngdb/{id_sample}', [PNGDBInputController::class, 'export']);
 
 //logged in user routes
 Route::middleware(['middleware' => 'auth:api'])->group(function () {
+    Route::post('/detail_sampel_preview', [DetailSampelController::class, 'detailSampelPreview']);
     Route::post('/detail_sampel', [DetailSampelController::class, 'store']);
     Route::put('/detail_sampel/{id_sample}', [DetailSampelController::class, 'update']);
     Route::get('/daftarmenungguverifikasiuser', [DaftarMenungguVerifikasiController::class, 'bagiUser']);
