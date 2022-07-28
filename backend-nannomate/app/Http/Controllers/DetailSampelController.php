@@ -482,7 +482,7 @@ class DetailSampelController extends Controller
                 return response()->json(['error'=>$validator->errors()], 400);
             }
 
-            //memastikan masukan spesies yang telah terdaftar dalam database beserta jumlahnya telah sesuai
+            //memastikan masukan spesies yang telah terdaftar dalam database telah sesuai
             if($request->id_spesies != null) {
                 $id_spesies = explode(', ', $request->id_spesies);
                 //memastikan elemen-elemen id_spesies harus berupa integer
@@ -508,15 +508,116 @@ class DetailSampelController extends Controller
                     }
                 }
             }
-        
-            // get setiap spesies_nanofosil sampel and zona_geologi dari spesies-spesies tersebut
+
+            //get setiap spesies_nanofosil terdaftar sampel and zona_geologi dari spesies-spesies tersebut
             $i = 0;
             $spesies = [];
             $zona_geologi = [];
             foreach ($id_spesies as $id_spesies_value) {
-                $spesies[$i] = spesies_nanofosil::where('id_spesies', '=', $id_spesies_value)->get()[0];
-                $zona_geologi[$i] = zona_geologi::where('id_spesies', '=', $id_spesies_value)->get();
+                $spesies[$i] = spesies_nanofosil::where('id_spesies', '=', $id_spesies_value)->get()[0]->toArray();
+                $zona_geologi[$i] = zona_geologi::where('id_spesies', '=', $id_spesies_value)->get()->toArray();
                 $i++;
+            }
+
+            //memastikan masukan spesies tambahan beserta umur awal dan akhirnya telah sesuai
+            if($request->spesies_tambahan != null) {
+                $spesies_tambahan = explode(', ', $request->spesies_tambahan);
+                if ($request->umur_awal_tambahan != null) {
+                    $umur_awal_tambahan = explode(', ', $request->umur_awal_tambahan);
+                    //memastikan elemen-elemen umur_awal_tambahan harus berupa integer
+                    try {
+                        $error = array('umur_awal_tambahan' => ['Elemen-elemen umur_awal_tambahan harus berupa integer']);
+                        foreach($umur_awal_tambahan as $umur_awal_tambahan_value) {
+                            if(!is_integer($umur_awal_tambahan_value + 1)) {
+                                return response()->json(['error'=> $error], 400);
+                            }
+                        }
+                    }
+                    catch(\Exception $exception){
+                        return response()->json(['error'=> $error], 400);
+                    }
+
+                    //memastikan setiap elemen umur_awal_tambahan bernilai antara 1 dan 46
+                    $error = array('umur_awal_tambahan' => ['Elemen-elemen umur_awal_tambahan harus antara 1 dan 46']);
+                    foreach($umur_awal_tambahan as $umur_awal_tambahan_value) {
+                        if($umur_awal_tambahan_value < 1 || $umur_awal_tambahan_value > 46) {
+                            return response()->json(['error'=> $error], 400);
+                        }
+                    }
+                }
+
+                if ($request->umur_akhir_tambahan != null) {
+                    $umur_akhir_tambahan = explode(', ', $request->umur_akhir_tambahan);
+                    //memastikan elemen-elemen umur_akhir_tambahan harus berupa integer
+                    try {
+                        $error = array('umur_akhir_tambahan' => ['Elemen-elemen umur_akhir_tambahan harus berupa integer']);
+                        foreach($umur_akhir_tambahan as $umur_akhir_tambahan_value) {
+                            if(!is_integer($umur_akhir_tambahan_value + 1)) {
+                                return response()->json(['error'=> $error], 400);
+                            }
+                        }
+                    }
+                    catch(\Exception $exception){
+                        return response()->json(['error'=> $error], 400);
+                    }
+
+                    //memastikan setiap elemen umur_akhir_tambahan bernilai antara 1 dan 46
+                    $error = array('umur_akhir_tambahan' => ['Elemen-elemen umur_akhir_tambahan harus antara 1 dan 46']);
+                    foreach($umur_akhir_tambahan as $umur_akhir_tambahan_value) {
+                        if($umur_akhir_tambahan_value < 1 || $umur_akhir_tambahan_value > 46) {
+                            return response()->json(['error'=> $error], 400);
+                        }
+                    }
+                }
+
+                //memastikan umur awal spesies tambahan telah dimasukkan
+                if($request->umur_awal_tambahan != null) {
+                    if(count($spesies_tambahan) != count($umur_awal_tambahan)) {
+                        return response()->json(['error'=> 'Ada umur awal spesies tambahan yang belum dimasukkan'], 400);
+                    }
+                }
+                else {
+                    return response()->json(['error'=> 'Ada umur awal spesies tambahan yang belum dimasukkan'], 400);
+                }
+
+                //memastikan umur akhir spesies tambahan telah dimasukkan
+                if($request->umur_akhir_tambahan != null) {
+                    if(count($spesies_tambahan) != count($umur_akhir_tambahan)) {
+                        return response()->json(['error'=> 'Ada umur akhir spesies tambahan yang belum dimasukkan'], 400);
+                    }
+                }
+                else {
+                    return response()->json(['error'=> 'Ada umur akhir spesies tambahan yang belum dimasukkan'], 400);
+                }
+
+                //memastikan setiap elemen umur_akhir_tambahan lebih dari atau sama dengan setiap elemen umur_awal_tambahan nya
+                if($request->umur_awal_tambahan != null && $request->umur_akhir_tambahan != null) {
+                    for ($i=0; $i < count($umur_awal_tambahan); $i++) {
+                        if ($umur_awal_tambahan[$i] > $umur_akhir_tambahan[$i]) {
+                            return response()->json(['error'=> 'Ada umur awal melebihi umur akhir spesies tambahan'], 400);
+                        }
+                    }
+                }
+            }
+
+            if($request->spesies_tambahan != null) {
+                //memasukkan nama spesies tambahan
+                for ($i=0; $i < count($spesies_tambahan); $i++) {
+                    $index = count($spesies);
+                    $spesies[$index]['nama_spesies'] = $spesies_tambahan[$i];
+                    $spesies[$index]['status'] = 'tambahan';
+                }
+
+                //memasukkan zona geologi spesies tambahan
+                if($request->umur_awal_tambahan != null && $request->umur_akhir_tambahan != null) {
+                    for ($i=0; $i < count($umur_awal_tambahan); $i++) {
+                        $zona_geologi_tambahan = [];
+                        for($j=0; $j <= ($umur_akhir_tambahan[$i] - $umur_awal_tambahan[$i]); $j++) {
+                            $zona_geologi_tambahan[$j]['id_umur'] = ($umur_awal_tambahan[$i] + $j);
+                        }
+                        $zona_geologi[count($zona_geologi)] = $zona_geologi_tambahan;
+                    }
+                }
             }
 
             //menghitung jumlah spesies berumur
@@ -530,15 +631,15 @@ class DetailSampelController extends Controller
             if ($m != 0) {
                 //mengumpulkan umur awal spesies
                 for ($k=0; $k<$m; $k++) {
-                    $umur_awal_spesies[$k] = $zona_geologi[$k][0]->id_umur;
+                    $umur_awal_spesies[$k] = $zona_geologi[$k][0]['id_umur'];
                 }
 
                 $max_umur_awal_spesies = max($umur_awal_spesies);
 
                 //mengumpulkan umur akhir spesies yang memiliki overlap dengan spesies termuda
                 for ($l=0; $l<$m; $l++) {
-                    if ($zona_geologi[$l][count($zona_geologi[$l]) - 1]->id_umur >= $max_umur_awal_spesies) {
-                        $umur_akhir_spesies[$l] = $zona_geologi[$l][count($zona_geologi[$l]) - 1]->id_umur;
+                    if ($zona_geologi[$l][count($zona_geologi[$l]) - 1]['id_umur'] >= $max_umur_awal_spesies) {
+                        $umur_akhir_spesies[$l] = $zona_geologi[$l][count($zona_geologi[$l]) - 1]['id_umur'];
                     }
                 }
 
