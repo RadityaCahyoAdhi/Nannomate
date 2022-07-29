@@ -604,7 +604,7 @@ class DetailSampelController extends Controller
                 //memasukkan nama spesies tambahan
                 for ($i=0; $i < count($spesies_tambahan); $i++) {
                     $index = count($spesies);
-                    $spesies[$index]['nama_spesies'] = $spesies_tambahan[$i];
+                    $spesies[$index]['nama_spesies'] = trim($spesies_tambahan[$i]);
                     $spesies[$index]['status'] = 'tambahan';
                 }
 
