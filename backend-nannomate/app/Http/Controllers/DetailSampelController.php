@@ -672,12 +672,9 @@ class DetailSampelController extends Controller
         if ($user['role'] != 'user login') {
             return response()->json(['error'=>'Unauthorised'], 403);
         } else {
-            $validator = Validator::make($request->all(), [
-                'id_spesies' => 'required'
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json(['error'=>$validator->errors()], 400);
+            //memastikan spesies sampel telah ditentukan
+            if ($request->id_spesies == null && $request->spesies_tambahan == null) {
+                return response()->json(['error'=> 'Spesies belum dimasukkan'], 400);
             }
 
             //memastikan masukan spesies yang telah terdaftar dalam database telah sesuai
@@ -707,14 +704,17 @@ class DetailSampelController extends Controller
                 }
             }
 
-            //get setiap spesies_nanofosil terdaftar sampel and zona_geologi dari spesies-spesies tersebut
-            $i = 0;
+            //define spesies and $zona_geologi variable
             $spesies = [];
             $zona_geologi = [];
-            foreach ($id_spesies as $id_spesies_value) {
-                $spesies[$i] = spesies_nanofosil::where('id_spesies', '=', $id_spesies_value)->get()[0]->toArray();
-                $zona_geologi[$i] = zona_geologi::where('id_spesies', '=', $id_spesies_value)->get()->toArray();
-                $i++;
+            //get setiap spesies_nanofosil terdaftar sampel and zona_geologi dari spesies-spesies tersebut
+            if ($request->id_spesies != null) {
+                $i = 0;
+                foreach ($id_spesies as $id_spesies_value) {
+                    $spesies[$i] = spesies_nanofosil::where('id_spesies', '=', $id_spesies_value)->get()[0]->toArray();
+                    $zona_geologi[$i] = zona_geologi::where('id_spesies', '=', $id_spesies_value)->get()->toArray();
+                    $i++;
+                }
             }
 
             //memastikan masukan spesies tambahan beserta umur awal dan akhirnya telah sesuai
