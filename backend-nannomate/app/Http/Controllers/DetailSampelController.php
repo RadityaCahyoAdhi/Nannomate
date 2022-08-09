@@ -654,8 +654,12 @@ class DetailSampelController extends Controller
 
                 $sample_spesies->delete();
                 foreach ($sample_spesies_temp as $sample_spesies_temp_value) {
-                    $spesies_tambahan = spesies_nanofosil::where('id_spesies', '=', $sample_spesies_temp_value['id_spesies'])->where('status', '=', 'tambahan');
-                    $spesies_tambahan->delete();
+                    $spesies_tambahan = spesies_nanofosil::find($sample_spesies_temp_value['id_spesies']);
+                    if ($spesies_tambahan['status'] == 'tambahan') {
+                        $zona_geologi = zona_geologi::where('id_spesies', $sample_spesies_temp_value['id_spesies']);
+                        $zona_geologi->delete();
+                        $spesies_tambahan->delete();
+                    }
                 }
                 $sample->delete();
                 $studi_area->delete();
