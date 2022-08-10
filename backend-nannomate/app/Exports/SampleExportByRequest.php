@@ -18,7 +18,7 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
     */
 
     //construct variabel request
-    public function __construct(string $nama_observer, string $tanggal_penelitian, string $lokasi, string $litologi, string $formasi, string $longitude, string $latitude, string $kode_sample, string $kelimpahan, string $preparasi, string $pengawetan, string $tujuan, string $stopsite, string $id_spesies = null, string $spesies_tambahan = null, string $id_spesies_jumlah = null, string $spesies_tambahan_jumlah = null)
+    public function __construct(string $nama_observer, string $tanggal_penelitian, string $lokasi, string $litologi, string $formasi, string $longitude, string $latitude, string $kode_sample, string $kelimpahan, string $preparasi, string $pengawetan, string $tujuan, string $stopsite, string $id_spesies = null, string $spesies_tambahan = null, string $id_spesies_jumlah = null, string $spesies_tambahan_jumlah = null, array $zona_geologi = null)
     {
         $this->nama_observer = $nama_observer;
         $this->tanggal_penelitian = $tanggal_penelitian;
@@ -37,6 +37,7 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
         $this->spesies_tambahan = $spesies_tambahan;
         $this->id_spesies_jumlah = $id_spesies_jumlah;
         $this->spesies_tambahan_jumlah = $spesies_tambahan_jumlah;
+        $this->zona_geologi = $zona_geologi;
     }
 
     //set style excel
@@ -119,6 +120,7 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
         $sample['tujuan'] = $this->tujuan;
         $sample['stopsite'] = $this->stopsite;
         $sample_spesies = null;
+        $zona_geologi_tambahan = $this->zona_geologi;
         $i = 0;
 
         //define jumlah individu per spesies tersimpan dalam database
@@ -221,8 +223,13 @@ class SampleExportByRequest implements FromView, WithStyles, WithColumnWidths
 
         $umur_spesies = Array();
         $i = 0;
+        $spesies_tambahan_counter = 0;
         foreach ($spesies_nanofosil as $spesies_nanofosil_value) {
-            $spesies_nanofosil_value[0]['zona'] = zona_geologi::where('id_spesies', '=', $spesies_nanofosil_value[0]['id_spesies'])->get();
+            $spesies_nanofosil_value[0]['zona'] = zona_geologi::where('id_spesies', '=', $spesies_nanofosil_value[0]['id_spesies'])->get()->toArray();
+            if ($spesies_nanofosil_value[0]['status'] == 'tambahan') {
+                $spesies_nanofosil_value[0]['zona'] = $zona_geologi_tambahan[$spesies_tambahan_counter];
+                $spesies_tambahan_counter++;
+            }
             $j = 0;
 
             //define zona umur per spesies
