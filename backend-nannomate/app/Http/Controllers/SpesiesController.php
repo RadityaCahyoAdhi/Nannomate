@@ -235,5 +235,29 @@ class SpesiesController extends Controller
             return response()->json($daftarSpesiesAdmin, 200);
         }
     }
+
+    //mengubah status suatu spesies nannofosil menjadi 'terhapus'
+    public function putStatusSpesiesTerhapus($id)
+    {
+        //mengambil data user
+        $user = Auth::user();
+
+        //memastikan user memiliki role admin
+        if ($user['role'] != 'admin') {
+            return response()->json(['error'=>'Unauthorised'], 403);
+        } else {
+            //memeriksa apakah id_spesies request ada di database
+            $spesies_nanofosil = spesies_nanofosil::find($id);
+            if (is_null($spesies_nanofosil)){
+                return response()->json(['error'=>'Data Not Found!'], 404);
+            } else {
+                //mengubah status suatu spesies nannofosil menjadi 'terhapus'
+                spesies_nanofosil::where('id_spesies', $id)->update([
+                    'status' => 'terhapus'
+                ]);
+                return response()->json(['success'=>"Spesies nanofosil's status successfully updated"], 200);
+            }
+        }
+    }
 }
 

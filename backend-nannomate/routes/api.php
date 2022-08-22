@@ -71,6 +71,7 @@ Route::middleware(['middleware' => 'auth:api'])->group(function () {
     Route::get('/daftardataditolakadmin', [DaftarDataDitolakController::class, 'bagiAdmin']);
     Route::post('/spesies', [SpesiesController::class, 'store']);
     Route::put('/spesies/{id_spesies}', [SpesiesController::class, 'update']);
+    Route::put('/spesies_hapus/{id_spesies}', [SpesiesController::class, 'putStatusSpesiesTerhapus']);
     Route::delete('/spesies/{id_spesies}', [SpesiesController::class, 'destroy']);
     Route::put('/terimasampel/{id_sample}', [TerimaSampelController::class, 'update']);
     Route::put('/tolaksampel/{id_sample}', [TolakSampelController::class, 'update']);
