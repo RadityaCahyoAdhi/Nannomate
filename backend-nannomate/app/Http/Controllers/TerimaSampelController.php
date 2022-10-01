@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\sample;
 use App\Models\sample_spesies;
 use App\Models\spesies_nanofosil;
+use App\Models\zona_geologi;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,9 +33,27 @@ class TerimaSampelController extends Controller
             foreach ($sample_spesies as $sample_spesies_value) {
                 $spesies = spesies_nanofosil::find($sample_spesies_value['id_spesies']);
                 if ($spesies['status'] == 'tambahan') {
-                    $spesies->update([
-                        'status' => 'terverifikasi'
-                    ]);
+                    $spesies_terverifikasi_duplikat = spesies_nanofosil::where('nama_spesies', '=', $spesies['nama_spesies'])
+                    ->where('status', '=', 'terverifikasi')
+                    ->get();
+                    $hit = $spesies_terverifikasi_duplikat->count();
+
+                    if ($hit > 0) {
+                        $id_spesies_duplikat = $sample_spesies_value['id_spesies'];
+                        //mengganti id_spesies sample_spesies dari spesies tambahan duplikat dengan id_spesies spesies terverifikasi
+                        $sample_spesies_value->update([
+                            'id_spesies' => $spesies_terverifikasi_duplikat->first()['id_spesies']
+                        ]);
+
+                        //menghapus record pada tabel database zona_geologi dan spesies_nannofosil yang berhubungan dengan id_spesies spesies tambahan duplikat
+                        $zona_geologi = zona_geologi::where('id_spesies', $id_spesies_duplikat);
+                        $zona_geologi->delete();
+                        $spesies->delete();
+                    } else {
+                        $spesies->update([
+                            'status' => 'terverifikasi'
+                        ]);
+                    }
                 }
             }
 
