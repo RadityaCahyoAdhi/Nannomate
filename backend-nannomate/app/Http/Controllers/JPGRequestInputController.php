@@ -187,7 +187,6 @@ class JPGRequestInputController extends Controller
                 }
             }
 
-            Ghostscript::setGsPath('C:\Program Files\gs\gs9.54.0\bin\gswin64c.exe');
             $file_name = 'Fossil List Export '.now()->format('Y-m-d H.i.s');
             Excel::store(new SampleExportByRequest($request->nama_observer, $request->tanggal_penelitian, $request->lokasi, $request->litologi, $request->formasi, $request->longitude, $request->latitude, $request->kode_sample, $request->kelimpahan, $request->preparasi, $request->pengawetan, $request->tujuan, $request->stopsite, $request->id_spesies, $request->spesies_tambahan, $request->id_spesies_jumlah, $request->spesies_tambahan_jumlah, $zona_geologi), $file_name.'.pdf', 'public');
 

@@ -18,7 +18,6 @@ class JPGDBInputController extends Controller
         if (is_null($sample)){
             return response()->json(['error'=>'Data Not Found!'], 404);
         }
-        // Ghostscript::setGsPath('C:\Program Files\gs\gs9.54.0\bin\gswin64c.exe');
         $file_name = 'Fossil List Export '.now()->format('Y-m-d H.i.s');
         Excel::store(new SampleExport($id), $file_name.'.pdf', 'public');
 
