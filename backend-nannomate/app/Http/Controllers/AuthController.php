@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\user;
+use App\Models\User;
 
 
 class AuthController extends Controller
@@ -25,7 +25,7 @@ class AuthController extends Controller
         }
 
 		//find email same or new
-		$hit = user::where('email', '=', $request->email)->get();
+		$hit = User::where('email', '=', $request->email)->get();
         $hit = $hit->count();
 
         if ($hit > 0) {
@@ -46,7 +46,7 @@ class AuthController extends Controller
                 $input['password'] = Hash::make($input['password']);
                 $input['role'] = 'user login';
                 $input['status'] = 'aktif';
-                $user = user::create($input);
+                $user = User::create($input);
                 $success['token'] = $user->createToken('nApp')->accessToken;
                 $success['nama_lengkap'] = $user->nama_lengkap;
                 $success['role'] = $user->role;
@@ -117,7 +117,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         //find email same or new
-		$hit = user::where('email', '=', $request->email)->get();
+		$hit = User::where('email', '=', $request->email)->get();
         $hit = $hit->count();
 
         if ($hit > 0 && strtolower($user['email']) != strtolower($request->email)) {
@@ -134,7 +134,7 @@ class AuthController extends Controller
                 return response()->json(['error'=>'Password Wajib minimum 6 Character dan mengandung huruf BESAR, huruf kecil dan angka!(misal : Contoh111)'], 400);
             } else {
 
-                user::where('id_user', $user['id_user'])->update([
+                User::where('id_user', $user['id_user'])->update([
                     'nama_lengkap' => $request->nama_lengkap,
                     'email' => strtolower($request->email),
                     'password' => Hash::make($request->password)
